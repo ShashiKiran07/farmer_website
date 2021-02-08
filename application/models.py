@@ -28,4 +28,14 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
 
-    
+class Transaction(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default = datetime.utcnow)
+    amount_paid = db.Column(db.Integer, nullable = False, default = 0)
+    amount_received = db.Column(db.Integer, nullable = False, default = 0)
+    total = amount_received-amount_paid
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Transaction('{self.content}', '{self.date_posted}', '{self.total}'"
