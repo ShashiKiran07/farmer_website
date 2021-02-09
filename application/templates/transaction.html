@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block body %}
+<article class="media content-section">
+    <img class="rounded-circle article-img"
+        src="{{ url_for('static', filename='profile_pics/'+transaction.creator.image_file) }}">
+    <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-2" href="{{ url_for('users.user_transactions', username=transaction.creator.username) }}">{{
+                transaction.creator.username }}</a>
+            <small class="text-muted">{{ transaction.date_posted.strftime('%Y-%m-%d') }}</small>
+        </div>
+        <p class="article-content">{{ transaction.content }}</p>
+        <p>Amount Paid = {{ transaction.amount_paid }}</p>
+        <p>Amount Received = {{ transaction.amount_received }}</p>
+        <p>Total = {{ transaction.amount_paid - transaction.amount_received}}</p>
+    </div>
+</article>
+<!-- Modal -->
+{% endblock %}

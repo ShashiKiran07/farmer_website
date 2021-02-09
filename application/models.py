@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
+    transactions = db.relationship('Transaction', backref='creator', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
@@ -34,8 +35,7 @@ class Transaction(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default = datetime.utcnow)
     amount_paid = db.Column(db.Integer, nullable = False, default = 0)
     amount_received = db.Column(db.Integer, nullable = False, default = 0)
-    total = amount_received-amount_paid
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)
 
     def __repr__(self):
         return f"Transaction('{self.content}', '{self.date_posted}', '{self.total}'"

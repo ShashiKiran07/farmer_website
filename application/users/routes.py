@@ -2,7 +2,7 @@ from flask.helpers import url_for
 from application.users.forms import LoginForm, RegistrationForm, UpdateAccountForm
 from flask import Blueprint,flash, redirect, request
 from flask.templating import render_template
-from application.models import User, Post
+from application.models import Transaction, User, Post
 from application import db, bcrypt
 from application.users.utils import save_picture
 from flask_login import login_user, logout_user, current_user, login_required
@@ -71,3 +71,12 @@ def user_posts(username):
         .order_by(Post.date_posted.desc())\
         .paginate(page=page, per_page=5)
     return render_template('user_posts.html', posts=posts, user=user)
+
+@users.route('/user/<string:username>/transactions')
+def user_transactions(username):
+    page = request.args.get('page', type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    transactions = Transaction.query.filter_by(creator=user)\
+        .order_by(Transaction.date_posted.desc())\
+        .paginate(page=page, per_page=5)
+    return render_template('user_transactions.html', transactions=transactions, user=user)
