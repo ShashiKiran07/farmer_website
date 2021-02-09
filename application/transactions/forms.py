@@ -8,3 +8,5 @@ class TransactionForm(FlaskForm):
     amount_paid = IntegerField('Amount Paid')
     amount_received = IntegerField('Amount Received')
     submit = SubmitField('Create')
+
+# whatever it is stop
