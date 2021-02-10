@@ -15,7 +15,7 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
-                <a class="navbar-brand mr-4" href="/">Flask Blog</a>
+                <a class="navbar-brand mr-4" href="/">Farmer Website</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
                     aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,7 +24,6 @@
                     <div class="navbar-nav mr-auto">
                         <a class="nav-item nav-link" href="/">Home</a>
                         <a class="nav-item nav-link" href="/about">About</a>
-                        <a class="nav-item nav-link" href="/about">Farmer Portal</a>
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav">
@@ -59,21 +58,28 @@
                 {% block body %}{% endblock %}
             </div>
             <div class="col-md-4">
-                <div class="content-section">
-                    <h3>Our Sidebar</h3>
-                    <p class='text-muted'>You can put any information here you'd like.
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-light">Your
-                            Posts</li>
-                        <li class="list-group-item list-group-item-light">Your
-                            Transactions</li>
-                        <li class="list-group-item list-group-item-light">Announcements</li>
-                        <li class="list-group-item list-group-item-light">Calendars</li>
-                        <li class="list-group-item list-group-item-light">etc</li>
-                    </ul>
-                    </p>
-                </div>
+                <!-- <div class="content-section"> -->
+                <ul class="list-group">
+                    {% if current_user.is_authenticated %}
+                    <li class="list-group-item list-group-item-light"><a
+                            href="{{ url_for('users.user_posts', username=current_user.username) }}">Your
+                            Posts</a></li>
+
+
+                    <li class="list-group-item list-group-item-light"><a
+                            href="{{ url_for('users.user_transactions', username=current_user.username) }}">Your
+                            Transactions</a></li>
+
+                    {% endif %}
+                    <a href="{{ url_for('main.weather')}}" target='_blank'>
+                        <li class="list-group-item list-group-item-light">Weather</li>
+                    </a>
+                    <li class="list-group-item list-group-item-light">Calendars</li>
+                    <li class="list-group-item list-group-item-light">etc</li>
+                </ul>
+                </p>
             </div>
+            <!-- </div> -->
         </div>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

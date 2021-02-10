@@ -1,7 +1,7 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, redirect
 from flask.templating import render_template
 from application.models import Post
-
+from application.main.utils import find_weather
 
 main = Blueprint('main', __name__)
 
@@ -16,3 +16,7 @@ def home():
 def about():
     return render_template('about.html')
 
+@main.route('/weather')
+def weather():
+    result = find_weather()
+    return redirect(result)

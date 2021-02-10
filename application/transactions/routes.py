@@ -16,10 +16,11 @@ def new_transaction():
         db.session.add(transaction)
         db.session.commit()
         flash('Your transaction has been added', 'success')
-        return redirect(url_for('users.account'))
+        return redirect(url_for('users.user_transactions', username=current_user.username))
     return render_template('new_transaction.html', title="New Transaction", form=form, legend="New Transaction")
 
 @transactions.route('/transaction/<int:transaction_id>')
+@login_required
 def transaction(transaction_id):
     transaction = Transaction.query.get_or_404(transaction_id)
     return render_template('transaction.html', content=transaction.content, transaction=transaction)
