@@ -1,7 +1,8 @@
 from flask import Blueprint, request, redirect
 from flask.templating import render_template
 from application.models import Post
-from application.main.utils import find_weather
+from application.main.utils import find_weather, location_codes
+from application.main.forms import LocationForm
 
 main = Blueprint('main', __name__)
 
@@ -16,7 +17,14 @@ def home():
 def about():
     return render_template('about.html')
 
-@main.route('/weather')
+@main.route('/weather',methods=['GET', 'POST'])
 def weather():
-    result = find_weather()
-    return redirect(result)
+    codes = location_codes
+    form = LocationForm()
+    form.location.choices = list(codes.keys())
+    if form.validate_on_submit():
+        location = form.location.data
+        return redirect("https://www.accuweather.com/en/in/" + location + "/" + codes[location] +\
+     "/current-weather/" + codes[location])
+    return render_template('weather.html',title='Weather', form=form, legend='Weather')
+        
