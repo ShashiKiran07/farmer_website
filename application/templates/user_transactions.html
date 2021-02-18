@@ -16,17 +16,19 @@
     </thead>
 
     <tbody>
+        <tr>Eata</tr>
         {% for transaction in transactions.items %}
         <tr>
             <th scope="row">{{ transaction.id }}</th>
             <td>{{ transaction.content }}</td>
             <td>{{ transaction.amount_paid }}</td>
             <td>{{ transaction.amount_received }}</td>
-            <td>{{ transaction.amount_paid-transaction.amount_received }}</td>
+            <td>{{ transaction.amount_received-transaction.amount_paid }}</td>
             <td>{{ transaction.date_posted }}</td>
             <td>Update/Delete</td>
         </tr>
         {% endfor %}
+
     </tbody>
 </table>
 

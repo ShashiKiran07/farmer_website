@@ -3,11 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from application.config import Config
+from flask_admin import Admin
 
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()
+admin = Admin()
 login_manager.login_view = 'users.login'
 login_manager.login_message_category = 'info'
 
@@ -19,6 +21,12 @@ def create_app(config_class=Config):
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
+    admin.init_app(app)
+    
+    from application.models import User, Post, Transaction, MyModelView
+    admin.add_view(MyModelView(User, db.session))
+    admin.add_view(MyModelView(Post, db.session))
+    admin.add_view(MyModelView(Transaction, db.session))
 
     from application.users.routes import users
     from application.posts.routes import posts

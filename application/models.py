@@ -1,6 +1,9 @@
 from application import db, login_manager
 from datetime import datetime
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
+from flask_admin import AdminIndexView
+from flask_admin.contrib.sqla import ModelView
+import os
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -39,3 +42,15 @@ class Transaction(db.Model):
 
     def __repr__(self):
         return f"Transaction('{self.content}', '{self.date_posted}', '{self.total}'"
+
+class MyModelView(ModelView):
+    def is_accessible(self):
+        if current_user.email == os.environ.get('ADMIN_USER'):
+            return current_user.is_authenticated        
+        else:
+            return False
+
+# class MyAdminIndexView(AdminIndexView):
+#     def is_accessible(self):
+#         if current_user.email == os.environ.get('ADMIN_USER'):
+#             return current_user.is_authenticated 

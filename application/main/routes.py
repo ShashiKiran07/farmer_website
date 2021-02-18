@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect
 from flask.templating import render_template
 from application.models import Post
-from application.main.utils import find_weather, location_codes
+from application.main.utils import location_codes
 from application.main.forms import LocationForm
 
 main = Blueprint('main', __name__)
