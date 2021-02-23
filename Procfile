@@ -1,1 +1,1 @@
-web: gunicorn run:farmer_website
+web: gunicorn run:app
