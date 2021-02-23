@@ -1,1 +1,1 @@
-web: gunicorn farmer_website.wsgi
+web: gunicorn app:app
