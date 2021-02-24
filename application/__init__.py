@@ -8,7 +8,6 @@ from flask_admin import Admin
 import boto3
 from flask_s3 import FlaskS3
 
-
 db = SQLAlchemy()
 bcrypt = Bcrypt()
 login_manager = LoginManager()

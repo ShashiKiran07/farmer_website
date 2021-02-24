@@ -4,8 +4,9 @@ from flask import Blueprint,flash, redirect, request
 from flask.templating import render_template
 from application.models import Transaction, User, Post
 from application import db, bcrypt
-from application.users.utils import save_picture
+from application.users.utils import save_picture, upload_to_s3
 from flask_login import login_user, logout_user, current_user, login_required
+import os
 
 
 users = Blueprint('users', __name__)
@@ -50,9 +51,9 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            # picture_file = save_picture(form.picture.data)
-            # current_user.image_file = picture_file
-            current_user.image_file = form.picture.data
+            picture_file = upload_to_s3(form.picture.data, os.environ.get('AWS_STORAGE_BUCKET_NAME'))
+            current_user.image_file = picture_file
+            # current_user.image_file = form.picture.data
         current_user.username = form.username.data
         current_user.email = form.email.data
         db.session.commit()
