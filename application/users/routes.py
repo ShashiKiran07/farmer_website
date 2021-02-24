@@ -4,7 +4,7 @@ from flask import Blueprint,flash, redirect, request
 from flask.templating import render_template
 from application.models import Transaction, User, Post
 from application import db, bcrypt
-from application.users.utils import save_picture, upload_to_s3
+from application.users.utils import upload_to_s3
 from flask_login import login_user, logout_user, current_user, login_required
 import os
 
