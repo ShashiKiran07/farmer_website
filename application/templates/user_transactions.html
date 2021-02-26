@@ -1,4 +1,7 @@
 {% extends 'base.html' %}
+{% block head %}
+<title>{{ user.username }}'s Transactions</title>
+{% endblock %}
 {% block body %}
 <h1 class="mb-3">{{ user.username }} has {{ transactions.total }} transactions</h1>
 

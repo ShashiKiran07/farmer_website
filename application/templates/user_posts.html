@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-<title>Links</title>
+<title>{{ user.username }}'s Posts</title>
 {% endblock %}
 {% block body %}
 <h1 class="mb-3">{{ user.username }} has {{ posts.total }} posts</h1>
