@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    {% block head %}
+    <title>Troezians</title>
+    {% endblock %}
+</head>
+
+<body>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Photo</th>
+                <th scope="col">Tag</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for tag in tags %}
+            <tr>
+                <td>{{ tag.name }}</td>
+                <td><img class="img-fluid img-thumbnail" style="width:200px;height:auto;"
+                        src="{{ url_for('static', filename='troezians/' + tag.name + tag.ext) }}">
+                </td>
+                <td>{{ tag.tag }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>

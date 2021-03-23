@@ -1,7 +1,8 @@
+from os import name
 from flask import Blueprint, request, redirect
 from flask.templating import render_template
 from application.models import Post
-from application.main.utils import location_codes
+from application.main.utils import location_codes, names_tags
 from application.main.forms import LocationForm
 
 main = Blueprint('main', __name__)
@@ -27,4 +28,8 @@ def weather():
         return redirect("https://www.accuweather.com/en/in/" + location + "/" + codes[location] +\
      "/current-weather/" + codes[location])
     return render_template('weather.html',title='Weather', form=form, legend='Weather')
-        
+
+@main.route('/troezians', methods=['GET','POST'])
+def view_pics():
+    tags = names_tags
+    return render_template('troezians.html', tags=tags)
